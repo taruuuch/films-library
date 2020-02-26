@@ -1,14 +1,18 @@
 import React from 'react'
 import { useRoutes } from './routes'
 import { Container } from 'semantic-ui-react'
+import { Navbar } from './components/Navbar/Navbar'
 
 function App() {
     const routes = useRoutes()
 
     return (
-        <Container style={{ margin: 15 }}>
-            {routes}
-        </Container>
+        <>
+            <Navbar />
+            <Container style={{ margin: 15 }}>
+                {routes}
+            </Container>
+        </>
     )
 }
 

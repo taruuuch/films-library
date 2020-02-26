@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FilmList } from '../components/Films/FilmsList'
 
 export const Films = () => {
+    const [isLoading, setIsLoading] = useState(true)
+
+    setTimeout(() => {
+        setIsLoading(false)
+    }, 3000);
+
     const films = [
         {
             _id: '5e564b0178f7823b0ceda541',
@@ -36,6 +42,6 @@ export const Films = () => {
     ]
 
     return (
-        <FilmList films={films} />
+        <FilmList isLoading={isLoading} films={films} />
     )
 }
