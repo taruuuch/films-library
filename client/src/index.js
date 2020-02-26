@@ -7,6 +7,7 @@ import { history } from './helpers/history'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 import 'normalize.css'
+import './style/main.css'
 
 ReactDOM.render(
     <Provider store={store}>

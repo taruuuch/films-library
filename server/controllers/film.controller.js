@@ -60,7 +60,7 @@ const updateFilm = async (req, res) => {
         await Film.findOneAndUpdate(filmId, body, { new: true })
             .then(film => res.json(film))
             .catch(error => res.status(500).json({
-                message: 'Project update error',
+                message: 'Film update error',
                 error
             }))
     } catch (e) {
@@ -73,12 +73,16 @@ const deleteFilm = async (req, res) => {
         const { filmId } = req.params
 
         const result = await Film.deleteOne({ _id: filmId })
+        const films = await Film.find().sort({ title: 1 })
 
         if (!result) {
-            return res.status(400).json({ message: 'Project delete error!' })
+            return res.status(400).json({ message: 'Film delete error!' })
         }
 
-        res.json({ message: 'Project delete success!' })
+        res.json({
+            message: 'Film delete success!',
+            films
+        })
     } catch (e) {
         res.status(500).json({ message: e.message })
     }
