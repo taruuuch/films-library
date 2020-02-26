@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { useRoutes } from './routes'
+import { Container } from 'semantic-ui-react'
+import { FilmList } from './components/Films/FilmsList'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const routes = useRoutes()
+    const films = [
+        {
+            _id: '5e564b0178f7823b0ceda541',
+            title: 'The Sting',
+            release_year: '1973',
+            format: 'DVD'
+        },
+        {
+            _id: '5e564b0178f7823b0ceda541',
+            title: 'The Muppet Movie',
+            release_year: '1979',
+            format: 'DVD'
+        },
+        {
+            _id: '5e564b0178f7823b0ceda541',
+            title: 'Get Shorty',
+            release_year: '1995',
+            format: 'DVD'
+        },
+        {
+            _id: '5e564b0178f7823b0ceda541',
+            title: 'My Cousin Vinny',
+            release_year: '1992',
+            format: 'DVD'
+        },
+        {
+            _id: '5e564b0178f7823b0ceda541',
+            title: 'Gladiator',
+            release_year: '2000',
+            format: 'Blu-Ray'
+        }
+    ]
+
+    return (
+        <Container style={{ margin: 15 }}>
+            {/* {routes} */}
+            <FilmList films={films} />
+        </Container>
+    )
 }
 
-export default App;
+export default App
