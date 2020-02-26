@@ -1,11 +1,13 @@
 import React from 'react'
 import { Button, Icon, Table } from 'semantic-ui-react'
 import { FilmItem } from './FilmItem'
+import { Link } from 'react-router-dom'
+import { CustomLoader as Loader } from '../Loader'
 
-export const FilmList = ({ films }) => {
+export const FilmList = ({ isLoading, films }) => {
     return (
         <Table compact celled definition>
-            <Table.Header>
+            {isLoading || <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell>#</Table.HeaderCell>
                     <Table.HeaderCell>Title</Table.HeaderCell>
@@ -13,29 +15,26 @@ export const FilmList = ({ films }) => {
                     <Table.HeaderCell>Format</Table.HeaderCell>
                     <Table.HeaderCell />
                 </Table.Row>
-            </Table.Header>
+            </Table.Header>}
 
             <Table.Body>
-                {films.map((film, index) => (
-                    <FilmItem index={index} film={film} />
-                ))}
+                {isLoading
+                    ?   <Table.Row>
+                            <Table.HeaderCell colSpan='5'>
+                                <Loader />
+                            </Table.HeaderCell>
+                        </Table.Row>
+                    : films.map((film, index) => (
+                        <FilmItem index={index} film={film} />
+                    ))
+                }
             </Table.Body>
 
             <Table.Footer fullWidth>
                 <Table.Row>
-                    <Table.HeaderCell />
-                    <Table.HeaderCell colSpan='4'>
+                    <Table.HeaderCell colSpan='5'>
                         <Button
-                            floated='right'
-                            icon
-                            labelPosition='left'
-                            primary
-                            size='small'
-                        >
-                            <Icon name='film' /> Add Film
-                        </Button>
-                        <Button
-                            floated='right'
+                            floated='left'
                             icon
                             labelPosition='left'
                             secondary
@@ -43,6 +42,17 @@ export const FilmList = ({ films }) => {
                         >
                             <Icon name='file' /> Import from .txt
                         </Button>
+                        <Link to='/film/new'>
+                            <Button
+                                floated='right'
+                                icon
+                                labelPosition='left'
+                                primary
+                                size='small'
+                            >
+                                <Icon name='film' /> Add Film
+                            </Button>
+                        </Link>
                     </Table.HeaderCell>
                 </Table.Row>
             </Table.Footer>
