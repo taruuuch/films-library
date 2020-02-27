@@ -1,85 +1,81 @@
 # **Films Library**
 
-Web application for storing movie information
+Веб-приложение для хранения информации о фильмах
 
-## **Technologies**
+## **Функционал**
+
+1. Добавить фильм <span style="color:green">✓</span>
+2. Удалить фильм <span style="color:green">✓</span>
+3. Показать информацию о фильме <span style="color:green">✓</span>
+    * Уникальный идентификатор
+    * Название фильма
+    * Год выпуска
+    * Формат (VHS, DVD, Blu-Ray)
+    * Список актеров (“Имя и фамилия актера”)
+4. Показать список фильмов отсортированных по названию в алфавитном порядке ✓
+5. Найти фильм по названию. <span style="color:green">✓</span>
+6. Найти фильм по имени актера. ✓
+7. Импорт фильмов с текстового файла (пример файла прилагается “sample_movies.txt”). Файл должен загружаться через веб-интерфейс. <span style="color:green">✓</span>
+
+## **Технологии**
 
 _Backend_
 
 * Node.js
 * Express
 * MongoDB
-* Swagger (Documentation API)
 
 _Frontend_
 
 * React
 * Redux
-* Material UI
+* [Semantic UI](https://react.semantic-ui.com/)
 
-## **Install**
+## **Установка и запуск**
 
-You don`t need a local database, since it is located in the [MongoDB Atlas Сloud](https://cloud.mongodb.com), the server will automatically connect to the database at startup.
+Вам не понадобиться локальная база данных, так как она находится в облаке [MongoDB Atlas Сloud](https://cloud.mongodb.com), сервер автоматически подключится к базе данных при запуске.
 
-To start server and client, you need to install dependencies via npm or yarn, for this you need to install the [_Node.js_](https://nodejs.org/) on your computer.
+Чтобы запустить сервер и клиент, вам необходимо установить зависимости через _npm_ или _yarn_, для этого у вас на компьютере должен быть установлен [_Node.js_](https://nodejs.org/).
 
-You need to install packages 3 times, separately for the server, client, as well as a package in the root directory to simultaneously start server and client.
+Вам необходимо установить пакеты 3 раза, отдельно для сервера, клиента, а также пакет в корневом каталоге, чтобы одновременно запустить сервер и клиент.
 
-In root directory:
+В корневом каталоге запустите команду _npm install_ или _yarn install_, и дождитесь установки зависимостей.
 
-```cmd
-npm install
-or
-yarn install
-```
+Для клиента, перейдите в папку, командой в консоле _cd client_, после этого запустите команду _npm install_ или _yarn install_, и дождитесь установки зависимостей.
 
-For client:
+Для сервера, перейдите в папку, командой в консоле из корневого каталога _cd server_, после этого запустите команду _npm install_ или _yarn install_, и дождитесь установки зависимостей.
 
-```cmd
-cd client
-```
-
-```cmd
-npm install
-or
-yarn install
-```
-
-For server
-
-```cmd
-cd server
-```
-
-```cmd
-npm install
-or
-yarn install
-```
-
-You need to duplicate _.env.example_ file with name _.env_, and register in it parameters for connecting to database and port for start server.
+Вам необходимо продублировать файл _.env.example_ с именем _.env_, в каталоге с сервером и проприсать в нем параметры для подключения к базе данных и порт для запуска сервера, что прописывать указано ниже:
 
 ```env
 PORT=paste your port to this (exp.: 8080)
 
+// Remote MongoDB
 DB_HOST=projectsviewer-i36ga.azure.mongodb.net
 DB_NAME=filmslibrary
 DB_USERNAME=dbProjectAdmin
 DB_PASSWORD=qwerty123456
 ```
 
-For start, use command in root directory:
+Так же вам необходимо продублировать файл _.env.example_ с именем _.env_, в каталоге с клиентом и проприсать в нем параметры для подключения к серверу, что прописывать указано ниже:
+
+```env
+REACT_APP_SERVER_HOST=localhost
+REACT_APP_SERVER_PORT=порт какой вы указали серверу
+```
+
+Для запуска используйте консольную команду в корневом каталоге:
 
 ```cmd
 npm run build
-or
+или
 yarn build
 ```
 
 ## **Bug tracker**
 
-Have a bug or a feature request? [Please open a new issue.](https://github.com/taruuuch/films-library/issues/new)
+Нашли ошибку или нужна новая функция? [Пожалуйста, откройте новуй issue.](https://github.com/taruuuch/films-library/issues/new)
 
-## **License**
+## **Лицензия**
 
 [MIT](https://opensource.org/licenses/MIT)
