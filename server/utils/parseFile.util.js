@@ -16,11 +16,24 @@ const parseFileData = (filePath) => {
             let key = data.split(':', 1).toString().toLowerCase()
             let value = data.split(': ').slice(1).join(': ').trim()
 
+            if (key === 'stars') {
+                let tmpStars = value.split(', ')
+                value = []
+                tmpStars.forEach(star => {
+                    value.push({
+                        first_name: star.split(' ', 1).toString(),
+                        last_name: star.split(' ').slice(1).toString()
+                    })
+                })
+            }
+
             objFilm[(key === 'release year') ? 'release_year' : key] = value
         })
 
         filmsForDatabase.push(objFilm)
     })
+
+
 
     return filmsForDatabase
 }

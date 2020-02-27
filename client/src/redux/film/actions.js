@@ -10,7 +10,7 @@ export const getInfo = (id) => dispatch => {
             dispatch(filmSuccess(response.data))
         })
         .catch(error => {
-            dispatch(filmError(error))
+            dispatch(filmError(error.response.data.message))
         })
 }
 
@@ -23,7 +23,7 @@ export const addFilm = (film) => dispatch => {
             history.push(`/film/${response.data._id}`)
         })
         .catch(error => {
-            dispatch(filmError(error))
+            dispatch(filmError(error.response.data.errors))
         })
 }
 

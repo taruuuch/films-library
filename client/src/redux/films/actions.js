@@ -9,7 +9,7 @@ export const getFilms = (page) => dispatch => {
             dispatch(filmsSuccess(response.data))
         })
         .catch(error => {
-            dispatch(filmsError(error))
+            dispatch(filmsError(error.response.data.message))
         })
 }
 
@@ -21,7 +21,7 @@ export const searchFilms = (params) => dispatch => {
             dispatch(filmsSuccess(response.data))
         })
         .catch(error => {
-            dispatch(filmsError(error))
+            dispatch(filmsError(error.response.data.message))
         })
 }
 
@@ -33,7 +33,7 @@ export const deleteFilm = (id) => dispatch => {
             dispatch(filmsSuccess(response.data.films))
         })
         .catch(error => {
-            dispatch(filmsError(error))
+            dispatch(filmsError(error.response.data.message))
         })
 }
 
@@ -45,7 +45,7 @@ export const importFilms = (file) => dispatch => {
             dispatch(filmsSuccess(response.data.films))
         })
         .catch(error => {
-            dispatch(filmsError(error))
+            dispatch(filmsError(error.response.data.message))
         })
 }
 

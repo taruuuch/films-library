@@ -1,5 +1,5 @@
 import React from 'react'
-import { Item, Label, Button } from 'semantic-ui-react'
+import { Item, Label, Button, List } from 'semantic-ui-react'
 import { history } from '../../helpers/history'
 
 export const Film = ({ film }) => (
@@ -18,10 +18,15 @@ export const Film = ({ film }) => (
                 <Item.Meta>
                     <span className='cinema'><b>ID:</b> {film._id}</span>
                 </Item.Meta>
-                <Item.Description><b>Stars:</b> {film.stars}</Item.Description>
                 <Item.Extra>
                     <Label>{film.format}</Label>
                 </Item.Extra>
+                <Item.Description>
+                    <b>Stars:</b>
+                    <List bulleted>
+                        {film.stars.map(star => <List.Item>{star.first_name + ' ' + star.last_name}</List.Item>)}
+                    </List>
+                </Item.Description>
             </Item.Content>
         </Item>
     </Item.Group>

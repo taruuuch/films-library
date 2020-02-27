@@ -14,6 +14,7 @@ export const Films = () => {
 
     useEffect(() => {
         loadFilms()
+        // eslint-disable-next-line
     }, [])
 
 
