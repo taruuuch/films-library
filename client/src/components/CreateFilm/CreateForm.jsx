@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-import { Button, Form, Input, Radio, TextArea } from 'semantic-ui-react'
+import { Button, Form, Input, Radio, TextArea, Message } from 'semantic-ui-react'
 import { history } from '../../helpers/history'
 
-export const CreateFilmForm = ({ onSubmit, isLoading }) => {
+export const CreateFilmForm = (props) => {
+    const { onSubmit, hasError, errors } = props
     const [form, setForm] = useState({
         title: '',
         release_year: null,
         format: '',
-        stars: ''
+        stars: null
     })
 
     const handleChangeFormat = (event, { value }) => setForm({
@@ -26,7 +27,7 @@ export const CreateFilmForm = ({ onSubmit, isLoading }) => {
     }
 
     return (
-        <Form onSubmit={onSubmitForm}>
+        <Form onSubmit={onSubmitForm} error>
             <Button
                 icon='left arrow'
                 labelPosition='left'
@@ -34,12 +35,15 @@ export const CreateFilmForm = ({ onSubmit, isLoading }) => {
                 style={{ marginBottom: 15 }}
                 onClick={() => history.push('/')}
             />
-            {/* {hasError && <Message
-                error
-                header='Could you check something!'
-                list={errors}
-            />} */}
+            {hasError &&
+                <Message
+                    error
+                    header='There was some errors with your submission'
+                    list={errors.map((error, index) => Object.values(error))}
+                />
+            }
             <Form.Field
+                required
                 control={Input}
                 label='Title'
                 placeholder='Title...'
@@ -47,14 +51,15 @@ export const CreateFilmForm = ({ onSubmit, isLoading }) => {
                 onChange={handleChange}
             />
             <Form.Input
-                width={2}
+                required
+                width={4}
                 control={Input}
                 label='Release year'
                 placeholder='Release year...'
                 name='release_year'
                 onChange={handleChange}
             />
-            <Form.Group inline>
+            <Form.Group inline >
                 <label>Format</label>
                 <Form.Field
                     control={Radio}
@@ -79,13 +84,15 @@ export const CreateFilmForm = ({ onSubmit, isLoading }) => {
                 />
             </Form.Group>
             <Form.Field
+                required
                 control={TextArea}
                 label='Stars'
-                placeholder='Stars (e.g: Jacky Chan, Tonny Montana,...)'
+                placeholder='Stars (e.g: Jacky Chan, Tonny Montana...)'
                 name='stars'
                 onChange={handleChange}
             />
             <Form.Field
+                required
                 primary
                 control={Button}
                 floated='right'

@@ -1,11 +1,11 @@
 const { body, validationResult } = require('express-validator')
 
 const filmValidationRules = () => [
-    body('title', 'Film title minimum length 2').notEmpty().isLength({ min: 2 }),
-    body('release_year', 'Release year need 4 number').notEmpty().isLength({ min: 4, max: 4 }),
-    body('release_year', 'Release year only numbers').notEmpty().isNumeric(),
-    body('format', 'Film format is required!').notEmpty().isLength({ min: 2 }),
-    body('stars', 'Minimum stars length 2').notEmpty().isLength({ min: 2 })
+    body('title', 'Film title minimum length 2').isLength({ min: 2 }),
+    body('release_year', 'Release year need 4 number').isLength({ min: 4, max: 4 }),
+    body('release_year', 'Release year only numbers').isNumeric(),
+    body('format', 'Film format is required!').isLength({ min: 2 }),
+    body('stars', 'Stars not empty').notEmpty()
 ]
 
 const validate = (req, res, next) => {

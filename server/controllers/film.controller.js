@@ -28,8 +28,11 @@ const get = async (req, res) => {
             Object.entries(req.query).forEach(item => {
                 if (item[0] === 'page') {
                     return
+                } else if (item[0] === 'star') {
+                    searchParams['stars'] = { $elemMatch: { first_name : new RegExp(item[1], 'i') } }
+                } else {
+                    searchParams[item[0]] = new RegExp(item[1], 'i')
                 }
-                searchParams[item[0]] = new RegExp(item[1], 'i')
             })
         }
 
@@ -119,13 +122,15 @@ const importFilm = async (req, res) => {
                 new: true,
                 upsert: true
             })
-        })
 
-        const films = await getAll()
+            if (index === fileData.length - 1) {
+                const films = await getAll()
 
-        res.status(201).json({
-            message: 'All films imported!',
-            films
+                res.status(201).json({
+                    message: 'All films imported!',
+                    films
+                })
+            }
         })
     } catch (e) {
         res.status(500).json({ message: e.message })

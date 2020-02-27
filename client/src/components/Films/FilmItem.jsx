@@ -2,7 +2,7 @@ import React from 'react'
 import { Table, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
-export const FilmItem = ({ index, film, onClickDelete }) => (
+export const FilmItem = ({ film, onClickDelete }) => (
     <Table.Row>
         <Table.Cell>
             <Link to={`/film/${film._id}`}>{film.title}</Link>

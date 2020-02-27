@@ -6,7 +6,7 @@ import { CustomLoader as Loader } from '../Loader'
 import { FilmsPagination } from './FilmsPagination'
 
 export const FilmList = (props) => {
-    const { isLoading, films, onClickDelete } = props
+    const { isLoading, films, pages, onClickDelete } = props
     const fileRef = useRef()
 
     const onFilmDelete = filmId => onClickDelete(filmId)
@@ -29,8 +29,8 @@ export const FilmList = (props) => {
                                 <Loader />
                             </Table.HeaderCell>
                         </Table.Row>
-                    : films
-                        ? films.map((film, index) => <FilmItem key={film._id} index={index} film={film} onClickDelete={onFilmDelete} />)
+                    : (films && films.length !== 0 )
+                        ? films.map((film, index) => <FilmItem key={film._id} film={film} onClickDelete={onFilmDelete} />)
                         :   <Table.Row>
                                 <Table.HeaderCell
                                     colSpan='4'
@@ -40,11 +40,11 @@ export const FilmList = (props) => {
                                     No films found!
                                 </Table.HeaderCell>
                             </Table.Row>
-                    }
+                }
             </Table.Body>
 
             <Table.Footer fullWidth>
-                {!isLoading &&
+                {(!isLoading && pages > 1) &&
                     <Table.Row key="pagination">
                         <Table.HeaderCell
                             colSpan='4'
@@ -52,7 +52,7 @@ export const FilmList = (props) => {
                         >
                             <FilmsPagination
                                 activePage={props.page}
-                                totalPages={props.pages}
+                                totalPages={pages}
                                 onPageChange={props.onPageChange}
                             />
                         </Table.HeaderCell>
