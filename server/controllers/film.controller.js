@@ -1,17 +1,39 @@
 const Film = require('../models/Film')
+const { parseFileData } = require('../utils/parseFile.util')
+
+const getAll = async (searchParams, reqPage) => {
+    const films = await Film.find(searchParams).sort({ title: 1 })
+    const pageCount = Math.ceil(films.length / 10)
+    let page = parseInt(reqPage) || 1
+
+    if (page > pageCount) {
+      page = pageCount
+    }
+
+    const filmsPage = {
+        page,
+        pageCount,
+        films: films.slice(page * 10 - 10, page * 10)
+    }
+
+    return filmsPage
+}
 
 const get = async (req, res) => {
     try {
-        const queryParams = Object.entries(req.query)
         const searchParams = {}
+        const { page } = req.query
 
-        if (queryParams.length !== 0) {
-            queryParams.forEach(item => {
+        if (Object.entries(req.query).length !== 0) {
+            Object.entries(req.query).forEach(item => {
+                if (item[0] === 'page') {
+                    return
+                }
                 searchParams[item[0]] = new RegExp(item[1], 'i')
             })
         }
 
-        const films = await Film.find(searchParams).sort({ title: 1 })
+        const films = await getAll(searchParams, page)
 
         if (films.length === 0) {
             return res.status(400).json({ message: 'Films not found!' })
@@ -73,7 +95,7 @@ const deleteFilm = async (req, res) => {
         const { filmId } = req.params
 
         const result = await Film.deleteOne({ _id: filmId })
-        const films = await Film.find().sort({ title: 1 })
+        const films = await getAll()
 
         if (!result) {
             return res.status(400).json({ message: 'Film delete error!' })
@@ -90,7 +112,21 @@ const deleteFilm = async (req, res) => {
 
 const importFilm = async (req, res) => {
     try {
+        const fileData = parseFileData(req.file.path)
 
+        fileData.forEach(async (film, index) => {
+            await Film.findOneAndUpdate(film, film, {
+                new: true,
+                upsert: true
+            })
+        })
+
+        const films = await getAll()
+
+        res.status(201).json({
+            message: 'All films imported!',
+            films
+        })
     } catch (e) {
         res.status(500).json({ message: e.message })
     }

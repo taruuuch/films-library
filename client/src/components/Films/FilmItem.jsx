@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 
 export const FilmItem = ({ index, film, onClickDelete }) => (
     <Table.Row>
-        <Table.Cell collapsing>{index + 1}</Table.Cell>
         <Table.Cell>
             <Link to={`/film/${film._id}`}>{film.title}</Link>
         </Table.Cell>

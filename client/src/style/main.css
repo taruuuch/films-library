@@ -1,3 +1,7 @@
 .delete {
     cursor: pointer;
 }
+
+textarea {
+    resize: none !important;
+}

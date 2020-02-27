@@ -4,7 +4,9 @@ const initialState = {
     isLoading: false,
     hasError: false,
     errors: null,
-    films: null
+    films: null,
+    page: null,
+    pages: null
 }
 
 export const filmsReducer = (state = initialState, action) => {
@@ -20,7 +22,9 @@ export const filmsReducer = (state = initialState, action) => {
                 isLoading: false,
                 hasError: false,
                 errors: null,
-                films: action.films
+                films: action.payload.films,
+                page: action.payload.page,
+                pages: action.payload.pageCount
             }
         case FILMS_ERROR:
             return {

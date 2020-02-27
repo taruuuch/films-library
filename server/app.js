@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const rateLimit = require('express-rate-limit')
 const helmet = require('helmet')
 const setupRoutes = require('./utils/routes.util')
@@ -10,12 +11,16 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Security setting
-app.use(helmet())
-app.use(rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 100,
-    message: 'Too many accounts created from this IP, please try again after an hour'
+app.use(cors({
+    origin: '*',
+    methods: 'GET, POST, PATCH, DELETE'
 }))
+app.use(helmet())
+// app.use(rateLimit({
+//     windowMs: 15 * 60 * 1000,
+//     max: 100,
+//     message: 'Too many accounts created from this IP, please try again after an hour'
+// }))
 
 // Settuping RESP API routes
 setupRoutes(app)

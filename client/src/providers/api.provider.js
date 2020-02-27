@@ -1,7 +1,8 @@
 import axios from 'axios'
+import { SERVER_URI } from '../config/default'
 
 export const apiProvider = axios.create({
-//   baseURL: 'http://localhost:8000/api/v1',
+  baseURL: `${SERVER_URI}/api/v1`,
   timeout: 3000,
   headers: {
     'Content-Type': 'application/json',

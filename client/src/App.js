@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRoutes } from './routes'
 import { Container } from 'semantic-ui-react'
-import { Navbar } from './components/Navbar/Navbar'
+import { Navbar } from './components/Navbar'
 
 function App() {
     const routes = useRoutes()

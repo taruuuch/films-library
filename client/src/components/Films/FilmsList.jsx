@@ -1,12 +1,13 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef } from 'react'
 import { Button, Table } from 'semantic-ui-react'
 import { FilmItem } from './FilmItem'
 import { Link } from 'react-router-dom'
 import { CustomLoader as Loader } from '../Loader'
+import { FilmsPagination } from './FilmsPagination'
 
-export const FilmList = ({ isLoading, films, onClickDelete }) => {
+export const FilmList = (props) => {
+    const { isLoading, films, onClickDelete } = props
     const fileRef = useRef()
-    const [file, setFile] = useState(null)
 
     const onFilmDelete = filmId => onClickDelete(filmId)
 
@@ -14,7 +15,6 @@ export const FilmList = ({ isLoading, films, onClickDelete }) => {
         <Table>
             <Table.Header>
                 <Table.Row>
-                    <Table.HeaderCell>#</Table.HeaderCell>
                     <Table.HeaderCell>Title</Table.HeaderCell>
                     <Table.HeaderCell>Release year</Table.HeaderCell>
                     <Table.HeaderCell>Format</Table.HeaderCell>
@@ -25,35 +25,63 @@ export const FilmList = ({ isLoading, films, onClickDelete }) => {
             <Table.Body>
                 { isLoading
                     ?   <Table.Row>
-                            <Table.HeaderCell colSpan='5'>
+                            <Table.HeaderCell colSpan='4'>
                                 <Loader />
                             </Table.HeaderCell>
                         </Table.Row>
-                    : films && films.map((film, index) => <FilmItem key={film._id} index={index} film={film} onClickDelete={onFilmDelete} />)}
+                    : films
+                        ? films.map((film, index) => <FilmItem key={film._id} index={index} film={film} onClickDelete={onFilmDelete} />)
+                        :   <Table.Row>
+                                <Table.HeaderCell
+                                    colSpan='4'
+                                    textAlign='center'
+                                    style={{ paddingTop: 15, paddingBottom: 15 }}
+                                >
+                                    No films found!
+                                </Table.HeaderCell>
+                            </Table.Row>
+                    }
             </Table.Body>
 
             <Table.Footer fullWidth>
+                {!isLoading &&
+                    <Table.Row key="pagination">
+                        <Table.HeaderCell
+                            colSpan='4'
+                            textAlign='center'
+                        >
+                            <FilmsPagination
+                                activePage={props.page}
+                                totalPages={props.pages}
+                                onPageChange={props.onPageChange}
+                            />
+                        </Table.HeaderCell>
+                    </Table.Row>
+                }
                 <Table.Row>
-                    <Table.HeaderCell colSpan='5'>
+                    <Table.HeaderCell colSpan='4'>
                         <Button
                             floated='left'
                             secondary
                             size='small'
                             icon='file'
+                            labelPosition='left'
                             content='Import from .txt'
                             onClick={() => fileRef.current.click()}
                         />
                         <input
                             ref={fileRef}
                             type="file"
+                            accept=".txt"
                             id="file"
                             hidden
-                            onChange={(event) => setFile(event.target.files.item(0))}
+                            onChange={(event) => props.onClickImport(event.target.files.item(0))}
                         />
                         <Link to='/film/new'>
                             <Button
                                 primary
                                 icon='film'
+                                labelPosition='left'
                                 floated='right'
                                 size='small'
                                 content='Add Film'
