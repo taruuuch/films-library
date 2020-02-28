@@ -3,12 +3,12 @@ import { Button, Form, Input, Radio, TextArea, Message } from 'semantic-ui-react
 import { history } from '../../helpers/history'
 
 export const CreateFilmForm = (props) => {
-    const { onSubmit, hasError, errors } = props
+    const { onSubmit, hasError, errors, isLoading } = props
     const [form, setForm] = useState({
         title: '',
-        release_year: null,
+        release_year: Number(),
         format: '',
-        stars: null
+        stars: ''
     })
 
     const handleChangeFormat = (event, { value }) => setForm({
@@ -27,7 +27,7 @@ export const CreateFilmForm = (props) => {
     }
 
     return (
-        <Form onSubmit={onSubmitForm} error>
+        <Form error={hasError}>
             <Button
                 icon='left arrow'
                 labelPosition='left'
@@ -39,7 +39,7 @@ export const CreateFilmForm = (props) => {
                 <Message
                     error
                     header='There was some errors with your submission'
-                    list={errors.map((error, index) => Object.values(error))}
+                    list={Array.isArray(errors) && errors.map((error, index) => Object.values(error))}
                 />
             }
             <Form.Field
@@ -92,6 +92,7 @@ export const CreateFilmForm = (props) => {
                 onChange={handleChange}
             />
             <Form.Field
+                disabled={isLoading}
                 required
                 primary
                 control={Button}
@@ -99,6 +100,7 @@ export const CreateFilmForm = (props) => {
                 icon='save'
                 labelPosition='left'
                 content='Save film'
+                onClick={onSubmitForm}
             />
         </Form>
     )

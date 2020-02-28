@@ -13,11 +13,10 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    stars: [{
-        type: Object,
-        first_name: { type: String },
-        last_name: { type: String }
-    }]
+    stars: {
+        type: String,
+        required: true
+    }
 }, {
     versionKey: false
 })

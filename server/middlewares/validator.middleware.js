@@ -2,11 +2,14 @@ const { body, validationResult } = require('express-validator')
 
 const filmValidationRules = () => [
     body('title', 'Film title minimum length 2').isLength({ min: 2 }),
-    body('release_year', 'Release year need 4 number').isLength({ min: 4, max: 4 }),
-    body('release_year', 'Release year only numbers').isNumeric(),
+    body('release_year').isLength({ min: 4, max: 4 }).withMessage('Release year need 4 number')
+                        .isNumeric().withMessage('Release year only numbers')
+                        .custom(checkReleaseYearInRange).withMessage('Release year in range 1850 to 2020'),
     body('format', 'Film format is required!').isLength({ min: 2 }),
     body('stars', 'Stars not empty').notEmpty()
 ]
+
+const checkReleaseYearInRange = (value, { req }) => (value >= 1850 && value <= 2020)
 
 const validate = (req, res, next) => {
     const errors = validationResult(req)

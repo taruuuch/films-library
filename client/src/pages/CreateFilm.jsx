@@ -10,18 +10,7 @@ export const CreateFilm = () => {
     const errors = useSelector(state => state.film.errors)
     const dispatch = useDispatch()
 
-    const onSubmit = (formData) => {
-        const starList = []
-        let tempStars = formData.stars.split(', ')
-        tempStars.forEach(star => {
-            starList.push({
-                first_name: star.split(' ', 1).toString(),
-                last_name: star.split(' ').slice(1).toString()
-            })
-        })
-        formData.stars = starList
-        dispatch(addFilm(formData))
-    }
+    const onSubmit = formData => dispatch(addFilm(formData))
 
     if (isLoading) {
         return <Loader />
@@ -32,6 +21,7 @@ export const CreateFilm = () => {
             onSubmit={onSubmit}
             hasError={hasError}
             errors={errors}
+            isLoading={isLoading}
         />
     )
 }
