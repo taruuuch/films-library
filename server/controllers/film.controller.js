@@ -2,7 +2,7 @@ const Film = require('../models/Film')
 const { parseFileData } = require('../utils/parseFile.util')
 
 const getAll = async (searchParams, reqPage) => {
-    const films = await Film.find(searchParams).sort({ title: 1 })
+    const films = await Film.find(searchParams).collation({ locale: 'en' }).sort({ title: 1 })
     const pageCount = Math.ceil(films.length / 10)
     let page = parseInt(reqPage) || 1
 
@@ -28,11 +28,9 @@ const get = async (req, res) => {
             Object.entries(req.query).forEach(item => {
                 if (item[0] === 'page') {
                     return
-                } else if (item[0] === 'star') {
-                    searchParams['stars'] = { $elemMatch: { first_name : new RegExp(item[1], 'i') } }
-                } else {
-                    searchParams[item[0]] = new RegExp(item[1], 'i')
                 }
+
+                searchParams[item[0]] = new RegExp(item[1], 'i')
             })
         }
 
@@ -68,6 +66,7 @@ const addFilm = async (req, res) => {
     try {
         const body = req.body
 
+        body.stars = Array.from(new Set(body.stars.split(', '))).join(', ')
         const film = new Film(body)
 
         await film.save()

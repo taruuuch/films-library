@@ -24,7 +24,7 @@ export const Film = ({ film }) => (
                 <Item.Description>
                     <b>Stars:</b>
                     <List bulleted>
-                        {film.stars.map(star => <List.Item>{star.first_name + ' ' + star.last_name}</List.Item>)}
+                        {film.stars.split(', ').map(star => <List.Item>{star}</List.Item>)}
                     </List>
                 </Item.Description>
             </Item.Content>

@@ -4,7 +4,7 @@ import { Input, Dropdown } from 'semantic-ui-react'
 export const SearchForm = ({ onSearch }) => {
     const options = [
         { key: 'title', text: 'Title', value: 'title' },
-        { key: 'stars', text: 'Star', value: 'stars' },
+        { key: 'stars', text: 'Stars', value: 'stars' },
     ]
 
     const onClickSearch = () => {
