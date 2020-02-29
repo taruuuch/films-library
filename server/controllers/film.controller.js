@@ -67,6 +67,13 @@ const addFilm = async (req, res) => {
         const body = req.body
 
         body.stars = Array.from(new Set(body.stars.split(', '))).join(', ')
+
+        const isMatch = await Film.findOne(body)
+
+        if (isMatch) {
+            return res.status(400).json({ message: 'This movie is in the library' })
+        }
+
         const film = new Film(body)
 
         await film.save()
