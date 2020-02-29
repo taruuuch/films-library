@@ -1,15 +1,16 @@
 const fs = require('fs')
 
+const splitLine = (line, length) => line.replace(/\r\n|\n\r|\n|\r/g, '\n').split('\n'.repeat(length))
+
 const parseFileData = (filePath) => {
     const fileEncoding = 'UTF-8'
     const filmsForDatabase = []
+    const fileData = fs.readFileSync(filePath, fileEncoding).toString().trim()
 
-    let films = fs.readFileSync(filePath, fileEncoding).toString().trim()
-
-    films = films.split('\r\n\r\n')
+    let films = splitLine(fileData, 2)
 
     films.forEach(film => {
-        const tempFilm = film.split('\r\n')
+        const tempFilm = splitLine(film, 1)
         const objFilm = {}
 
         tempFilm.map(data => {
@@ -21,8 +22,6 @@ const parseFileData = (filePath) => {
 
         filmsForDatabase.push(objFilm)
     })
-
-
 
     return filmsForDatabase
 }
