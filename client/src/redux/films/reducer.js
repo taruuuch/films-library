@@ -1,9 +1,14 @@
-import { FILMS_REQUEST, FILMS_SUCCESS, FILMS_ERROR } from './types'
+import {
+    FILM_LOADING,
+    GET_FILMS,
+    GET_FILM,
+    ADD_FILM,
+    DELETE_FILM
+} from './types'
 
 const initialState = {
     isLoading: false,
-    hasError: false,
-    errors: null,
+    film: null,
     films: null,
     page: null,
     pages: null
@@ -11,27 +16,35 @@ const initialState = {
 
 export const filmsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FILMS_REQUEST:
-            return {
-                ...state,
-                isLoading: true
-            }
-        case FILMS_SUCCESS:
+        case FILM_LOADING:
             return {
                 ...state,
                 isLoading: false,
-                hasError: false,
-                errors: null,
+            }
+        case GET_FILMS:
+            return {
+                ...state,
+                isLoading: false,
                 films: action.payload.films,
                 page: action.payload.page,
                 pages: action.payload.pageCount
             }
-        case FILMS_ERROR:
+        case GET_FILM:
             return {
                 ...state,
                 isLoading: false,
-                hasError: true,
-                errors: action.errors
+                film: action.film
+            }
+        case ADD_FILM:
+            return {
+                ...state,
+                isLoading: false,
+                film: action.film
+            }
+        case DELETE_FILM:
+            return {
+                ...state,
+                isLoading: false
             }
         default:
             return state
