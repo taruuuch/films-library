@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRoutes } from './routes'
 import { MessageBox } from './components/MessageBox'
 import { Navbar } from './components/Navbar'
@@ -23,6 +23,13 @@ function App() {
 
     const handleDismiss = () => dispatch(clearErrors())
 
+    useEffect(() => {
+        if (hasSuccess) {
+            setTimeout(() => {
+                dispatch(clearErrors())
+            }, 2500)
+        }
+    }, [dispatch, hasSuccess])
 
     return (
         <>
