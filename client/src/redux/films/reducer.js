@@ -1,10 +1,4 @@
-import {
-    FILM_LOADING,
-    GET_FILMS,
-    GET_FILM,
-    ADD_FILM,
-    DELETE_FILM
-} from './types'
+import { FILM_LOADING, RESET_LOADING, GET_FILMS, GET_FILM, ADD_FILM, DELETE_FILM } from './types'
 
 const initialState = {
     isLoading: false,
@@ -19,7 +13,12 @@ export const filmsReducer = (state = initialState, action) => {
         case FILM_LOADING:
             return {
                 ...state,
-                isLoading: false,
+                isLoading: true
+            }
+        case RESET_LOADING:
+            return {
+                ...state,
+                isLoading: false
             }
         case GET_FILMS:
             return {

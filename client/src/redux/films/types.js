@@ -1,4 +1,5 @@
 export const FILM_LOADING = 'FILM_LOADING'
+export const RESET_LOADING = 'RESET_LOADING'
 export const GET_FILMS = 'GET_FILMS'
 export const GET_FILM = 'GET_FILM'
 export const ADD_FILM = 'ADD_FILM'

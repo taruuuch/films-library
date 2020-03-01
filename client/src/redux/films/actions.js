@@ -1,10 +1,5 @@
-import {
-    FILM_LOADING,
-    GET_FILMS,
-    GET_FILM,
-    ADD_FILM,
-    DELETE_FILM
-} from './types'
+import { FILM_LOADING, RESET_LOADING, GET_FILMS, GET_FILM, ADD_FILM, DELETE_FILM } from './types'
+import { getErrors, getSuccess } from '../message/actions'
 import { filmProvider } from '../../providers/film.provider'
 import { history } from '../../helpers/history'
 
@@ -31,6 +26,10 @@ const deleteFilm = () => ({
     type: DELETE_FILM
 })
 
+const resetLoading = () => ({
+    type: RESET_LOADING
+})
+
 export const getFilmList = page => dispatch => {
     dispatch(filmLoading())
 
@@ -39,7 +38,7 @@ export const getFilmList = page => dispatch => {
             dispatch(getFilms(response.data))
         })
         .catch(error => {
-            // dispatch(filmsError(error.response.data.message))
+            dispatch(getErrors(error.response.data))
         })
 }
 
@@ -51,7 +50,7 @@ export const searchFilms = params => dispatch => {
             dispatch(getFilms(response.data))
         })
         .catch(error => {
-            // dispatch(filmsError(error.response.data))
+            dispatch(getErrors(error.response.data))
         })
 }
 
@@ -63,7 +62,7 @@ export const getFilmInfo = id => dispatch => {
             dispatch(getFilm(response.data))
         })
         .catch(error => {
-            // dispatch(filmError(error.response.data))
+            dispatch(getErrors(error.response.data))
         })
 }
 
@@ -72,11 +71,13 @@ export const addNewFilm = film => dispatch => {
 
     filmProvider.add(film)
         .then(response => {
-            dispatch(addFilm(response.data))
-            history.push(`/film/${response.data._id}`)
+            dispatch(addFilm(response.data.film))
+            dispatch(getSuccess(response.data.message))
+            history.push(`/film/${response.data.film._id}`)
         })
         .catch(error => {
-            // dispatch(filmError(error.response.data))
+            dispatch(resetLoading())
+            dispatch(getErrors(error.response.data))
         })
 }
 
@@ -86,9 +87,10 @@ export const importFilmsFromFile = file => dispatch => {
     filmProvider.import(file)
         .then(response => {
             dispatch(getFilms(response.data.films))
+            dispatch(getSuccess(response.data.message))
         })
         .catch(error => {
-            // dispatch(filmsError(error.response.data))
+            dispatch(getErrors(error.response.data))
         })
 }
 
@@ -99,8 +101,9 @@ export const deleteFilmById = id => dispatch => {
         .then(response => {
             dispatch(deleteFilm())
             dispatch(getFilms(response.data.films))
+            dispatch(getSuccess(response.data.message))
         })
         .catch(error => {
-            // dispatch(filmsError(error.response.data))
+            dispatch(getErrors(error.response.data))
         })
 }

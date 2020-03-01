@@ -1,20 +1,31 @@
-import { GET_ERRORS, CLEAR_ERRORS } from './types'
+import { GET_ERRORS, GET_SUCCESS, CLEAR_ERRORS } from './types'
 
 const initialState = {
-    msg: {},
+    hasSuccess: false,
+    hasError: false,
     status: null,
-    id: null
+    msg: {}
 }
 
 export const messageReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ERRORS:
             return {
-                ...state
+                ...state,
+                hasError: true,
+                hasSuccess: false,
+                msg: action.payload.msg
+            }
+        case GET_SUCCESS:
+            return {
+                ...state,
+                hasError: false,
+                hasSuccess: true,
+                msg: action.payload
             }
         case CLEAR_ERRORS:
             return {
-                ...state
+                ...initialState
             }
         default:
             return state

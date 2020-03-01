@@ -77,7 +77,10 @@ const addFilm = async (req, res) => {
         const film = new Film(body)
 
         await film.save()
-            .then(film => res.status(201).json(film))
+            .then(film => res.status(201).json({
+                message: `${film.title} add sucess`,
+                film
+            }))
     } catch (e) {
         res.status(500).json({ message: e.message })
     }

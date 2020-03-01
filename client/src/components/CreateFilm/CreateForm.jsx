@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Button, Form, Input, Radio, TextArea, Message } from 'semantic-ui-react'
+import { Button, Form, Input, Radio, TextArea } from 'semantic-ui-react'
 import { history } from '../../helpers/history'
 
 export const CreateFilmForm = (props) => {
-    const { onSubmit, hasError, errors, isLoading } = props
+    const { onSubmit, hasError, isLoading } = props
     const [form, setForm] = useState({
         title: '',
         release_year: Number(),
@@ -35,13 +35,6 @@ export const CreateFilmForm = (props) => {
                 style={{ marginBottom: 15 }}
                 onClick={() => history.push('/')}
             />
-            {hasError &&
-                <Message
-                    error
-                    header='There was some errors with your submission'
-                    list={Array.isArray(errors) && errors.map((error, index) => Object.values(error))}
-                />
-            }
             <Form.Field
                 required
                 control={Input}
