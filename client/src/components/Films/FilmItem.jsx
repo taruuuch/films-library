@@ -13,14 +13,6 @@ export const FilmItem = (props) => {
         setOpen(false)
     }
 
-    if (open) {
-        return <Confirm
-            open={open}
-            onCancel={handleCancel}
-            onConfirm={handleConfirm}
-        />
-    }
-
     return (
         <Table.Row>
             <Table.Cell>
@@ -30,6 +22,12 @@ export const FilmItem = (props) => {
             <Table.Cell>{film.format}</Table.Cell>
             <Table.Cell collapsing>
                 <Icon name='delete' onClick={() => setOpen(true)} />
+                {open && <Confirm
+                    open={open}
+                    onCancel={handleCancel}
+                    onConfirm={handleConfirm}
+                    size='tiny'
+                />}
             </Table.Cell>
         </Table.Row>
     )

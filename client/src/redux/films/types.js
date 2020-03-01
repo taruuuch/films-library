@@ -1,3 +1,5 @@
-export const FILMS_REQUEST = 'FILMS_REQUEST'
-export const FILMS_SUCCESS = 'FILMS_SUCCESS'
-export const FILMS_ERROR = 'FILMS_ERROR'
+export const FILM_LOADING = 'FILM_LOADING'
+export const GET_FILMS = 'GET_FILMS'
+export const GET_FILM = 'GET_FILM'
+export const ADD_FILM = 'ADD_FILM'
+export const DELETE_FILM = 'DELETE_FILM'

@@ -6,7 +6,7 @@ const initialState = {
     id: null
 }
 
-export const errorReducer = (state = initialState, action) => {
+export const messageReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ERRORS:
             return {
