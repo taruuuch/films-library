@@ -7,6 +7,10 @@ const parseFileData = (filePath) => {
     const filmsForDatabase = []
     const fileData = fs.readFileSync(filePath, fileEncoding).toString().trim()
 
+    if (fileData.length === 0) {
+        return false
+    }
+
     let films = splitLine(fileData, 2)
 
     films.forEach(film => {

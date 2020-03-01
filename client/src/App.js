@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useRoutes } from './routes'
 import { MessageBox } from './components/MessageBox'
 import { Navbar } from './components/Navbar'

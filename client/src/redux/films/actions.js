@@ -90,6 +90,7 @@ export const importFilmsFromFile = file => dispatch => {
             dispatch(getSuccess(response.data.message))
         })
         .catch(error => {
+            dispatch(resetLoading())
             dispatch(getErrors(error.response.data))
         })
 }
@@ -104,6 +105,7 @@ export const deleteFilmById = id => dispatch => {
             dispatch(getSuccess(response.data.message))
         })
         .catch(error => {
+            dispatch(resetLoading())
             dispatch(getErrors(error.response.data))
         })
 }
