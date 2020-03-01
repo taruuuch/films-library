@@ -126,6 +126,10 @@ const importFilm = async (req, res) => {
     try {
         const fileData = parseFileData(req.file.path)
 
+        if (!fileData) {
+            return res.status(400).json({ message: 'Import file is empty' })
+        }
+
         fileData.forEach(async (film, index) => {
             await Film.findOneAndUpdate(film, film, {
                 new: true,
