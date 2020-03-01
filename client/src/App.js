@@ -12,6 +12,7 @@ function App() {
 
     const hasError = useSelector(state => state.message.hasError)
     const hasSuccess = useSelector(state => state.message.hasSuccess)
+    const errorList = useSelector(state => state.message.msg.errors)
     const header = useSelector(state => {
         if (state.message.msg.message) {
             return state.message.msg.message
@@ -19,15 +20,9 @@ function App() {
             return state.message.msg
         }
     })
-    const errorList = useSelector(state => state.message.msg.errors)
 
     const handleDismiss = () => dispatch(clearErrors())
 
-    useEffect(() => {
-        setTimeout(() => {
-            dispatch(clearErrors())
-        }, 2500)
-    }, [dispatch, hasError, hasSuccess])
 
     return (
         <>

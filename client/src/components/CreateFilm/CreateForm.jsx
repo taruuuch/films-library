@@ -27,7 +27,10 @@ export const CreateFilmForm = (props) => {
     }
 
     return (
-        <Form error={hasError}>
+        <Form
+            error={hasError}
+            loading={isLoading}
+        >
             <Button
                 icon='left arrow'
                 labelPosition='left'
