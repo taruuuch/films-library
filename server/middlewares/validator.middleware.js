@@ -22,6 +22,7 @@ const validate = (req, res, next) => {
     errors.array().map(error => extractedErrors.push({ [error.param]: error.msg }))
 
     return res.status(422).json({
+        message: 'There was some errors with your submission',
         errors: extractedErrors
     })
 }

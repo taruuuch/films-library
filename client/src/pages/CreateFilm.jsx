@@ -8,8 +8,7 @@ export const CreateFilm = () => {
     const dispatch = useDispatch()
 
     const isLoading = useSelector(state => state.films.isLoading)
-    const hasError = useSelector(state => state.films.hasError)
-    const errors = useSelector(state => state.films.errors)
+    const hasError = useSelector(state => state.message.hasError)
 
     const onSubmit = formData => dispatch(addNewFilm(formData))
 
@@ -19,10 +18,9 @@ export const CreateFilm = () => {
 
     return (
         <CreateFilmForm
-            onSubmit={onSubmit}
             hasError={hasError}
-            errors={errors}
             isLoading={isLoading}
+            onSubmit={onSubmit}
         />
     )
 }
