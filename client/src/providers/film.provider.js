@@ -5,7 +5,10 @@ class createFilmProvider {
         this.filmUri = '/films'
     }
 
-    get = async (page) => await apiProvider.get(`${this.filmUri}?page=${page}`)
+    get = async (page) => {
+        page = page || 1
+        return await apiProvider.get(`${this.filmUri}?page=${page}`)
+    }
     getInfo = async (id) => await apiProvider.get(`${this.filmUri}/${id}`)
     search = async (params) => await apiProvider.get(this.filmUri, { params })
     add = async (film) => await apiProvider.post(`${this.filmUri}`, film)
