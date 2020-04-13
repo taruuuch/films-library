@@ -53,10 +53,10 @@
 PORT=paste your port to this (exp.: 8080)
 
 // Remote MongoDB
-DB_HOST=projectsviewer-i36ga.azure.mongodb.net
-DB_NAME=filmslibrary
-DB_USERNAME=dbProjectAdmin
-DB_PASSWORD=qwerty123456
+DB_HOST=
+DB_NAME=
+DB_USERNAME=
+DB_PASSWORD=
 ```
 
 Так же вам необходимо продублировать файл _.env.example_ с именем _.env_, в каталоге с клиентом и проприсать в нем параметры для подключения к серверу, что прописывать указано ниже:
