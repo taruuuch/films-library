@@ -64,10 +64,10 @@
 PORT=paste your port to this (exp.: 8080)
 
 // Remote MongoDB
-DB_HOST=projectsviewer-i36ga.azure.mongodb.net
-DB_NAME=filmslibrary
-DB_USERNAME=dbProjectAdmin
-DB_PASSWORD=qwerty123456
+DB_HOST=
+DB_NAME=
+DB_USERNAME=
+DB_PASSWORD=
 ```
 
 #### *Клиент*
